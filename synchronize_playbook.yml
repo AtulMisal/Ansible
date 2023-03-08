@@ -1,0 +1,17 @@
+# This playbook consists of how to write a playbook.
+# In playbook we have multiple play and each play has multiple tasks.
+
+---
+- hosts: web_server                  # In /etc/ansible/hosts file you have added some hosts see Installation file.
+  become: yes
+  user: ansible/root                 # If you have created a user add it here from which you are running this playbook.
+  connection: ssh
+  gather_facts: false/true           # It will not show the entire info on screen
+  tasks: 
+     - name: Synchronization of src on the control machine to dest on the remote hosts   # It will copy a folder with some data to nodes 
+       synchronize:
+         src: some/relative/path
+         dest: /some/absolute/path
+       
+...       
+       
