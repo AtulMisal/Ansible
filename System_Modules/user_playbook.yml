@@ -1,0 +1,19 @@
+---
+- hosts: web_server                  # In /etc/ansible/hosts file you have added some hosts see Installation file.
+  become: yes
+  user: ansible/root                 # If you have created a user add it here from which you are running this playbook.
+  connection: ssh
+  gather_facts: false/true           # It will not show the entire info on screen
+  tasks: 
+      - name: Add the user 'james' with a bash shell, appending the group 'admins' and 'developers' to the user's groups
+        user:
+          name: james
+          shell: /bin/bash
+          groups: admins,developers
+          append: yes
+
+      - name: Remove the user 'johnd'
+        user:
+          name: johnd
+          state: absent
+          remove: yes
