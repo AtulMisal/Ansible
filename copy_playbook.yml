@@ -1,0 +1,14 @@
+# This playbook consists of how to write a playbook.
+# In playbook we have multiple play and each play has multiple tasks.
+
+---
+- hosts: web_server                  # In /etc/ansible/hosts file you have added some hosts see Installation file.
+  become: yes
+  user: ansible/root                 # If you have created a user add it here from which you are running this playbook.
+  connection: ssh
+  gather_facts: false/true           # It will not show the entire info on screen
+  tasks: 
+     - name: This is first task      # Add the info here about the task.
+       copy: src=/opt/Directory/a.txt dest=/opt/Directory_2/a.txt owner='User of this file' group='Group of that owner' mode='permission that you want to give'
+...       
+       
