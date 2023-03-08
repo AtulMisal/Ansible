@@ -1,0 +1,24 @@
+# This playbook consists of how to write a playbook.
+# In playbook we have multiple play and each play has multiple tasks.
+
+---
+- hosts: web_server                  # In /etc/ansible/hosts file you have added some hosts see Installation file.
+  become: yes
+  user: ansible/root                 # If you have created a user add it here from which you are running this playbook.
+  connection: ssh
+  gather_facts: false/true           # It will not show the entire info on screen
+  tasks: 
+     - name: This is first task here we will add some lines in existing file      # Add the info here about the task.
+       lineinfile: path=/opt/Directory/a.txt line="We have added new line"        # Simple line added 
+     
+     - name: This is first task here we will add some lines in existing file      # Add the info here about the task.
+       lineinfile: path=/opt/Directory/a.txt regexp='^PORT_NUMBER'line="PORT_NUMBER=8080"        # If we want to change some existing lines and append with other   
+       
+     - name: Ensure the default Apache port is 8080
+       lineinfile:
+         path: /etc/httpd/conf/httpd.conf           # We can write in one line also as above and by this also
+         regexp: '^Listen '
+         insertafter: '^#Listen '                   # insertafter will insert the line after that text in that file              
+         line: Listen 8080
+...       
+       
