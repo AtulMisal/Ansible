@@ -1,0 +1,14 @@
+---
+- hosts: web_server                  # In /etc/ansible/hosts file you have added some hosts see Installation file.
+  become: yes
+  user: ansible/root                 # If you have created a user add it here from which you are running this playbook.
+  connection: ssh
+  gather_facts: false/true           # It will not show the entire info on screen
+  tasks: 
+  # Install (Bottle) python package.
+    - pip:
+        name: bottle
+
+  # Install (Bottle) python package on version 0.11.
+    - pip:
+      name: bottle==0.11
