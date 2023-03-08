@@ -1,0 +1,39 @@
+# All data took from ansible documentation..
+# Templates are processed by the Jinja2 templating language.
+# Documentation on the template formatting can be found in the Template Designer Documentation.
+# Additional variables listed below can be used in templates.
+# ansible_managed (configurable via the defaults section of ansible.cfg) contains a string which can be used to describe the template name, host, modification time of the template file and the owner uid.
+# template_host contains the node name of the template’s machine.
+# template_uid is the numeric user id of the owner.
+# template_path is the path of the template.
+# template_fullpath is the absolute path of the template.
+# template_destpath is the path of the template on the remote system (added in 2.8).
+# template_run_date is the date that the template was rendered.
+
+# This playbook consists of how to write a playbook.
+# In playbook we have multiple play and each play has multiple tasks.
+
+---
+- hosts: web_server                  # In /etc/ansible/hosts file you have added some hosts see Installation file.
+  become: yes
+  user: ansible/root                 # If you have created a user add it here from which you are running this playbook.I have created one user named ansible in my server machine.
+  connection: ssh
+  gather_facts: false/true           # It will not show the entire info on screen
+  tasks: 
+    - name: Template a file to /etc/files.conf
+      template:
+        src: /mytemplates/foo.j2
+        dest: /etc/file.conf
+        owner: bin
+        group: wheel
+        mode: '0644'
+
+    - name: Template a file, using symbolic modes (equivalent to 0644)
+      template:
+        src: /mytemplates/foo.j2
+        dest: /etc/file.conf
+        owner: bin
+        group: wheel
+        mode: u=rw,g=r,o=r
+...       
+       
