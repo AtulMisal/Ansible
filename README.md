@@ -37,7 +37,7 @@ Steps to install ansible and how to configure ansible nodes ---
 	Then perform 
 	   1.ssh-copy-id ansible@ip of other server (node-1)
 	   2.ssh-copy-id ansible@ip of other server (node-2)	
-------------------------------------------------------------------------------	   
+  
 Now add nodes ip in servers /etc/ansible/hosts files
 Here you can also create diff groups under that mention ip of that node-1
 	example - [webserver] -- give any name in []
@@ -52,7 +52,7 @@ Now to work with ansible we have some menthods --
 Ad-hoc commands are single line linux commands which are used perform some action
 Ad-hoc commands will not support Idempotence 
 
-Q) What is Idempotence --
+#Q) What is Idempotence --
       Suppose once we create a file by touch command and now if we do this again the file will be overwritten
 	    but in Ansible we have one powerfull feature called Idempotence which will not work if the
 	    same work has done in previous steps.
