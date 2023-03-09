@@ -1,0 +1,58 @@
+# Here we will install jenkins using ansible
+# We will do same steps as we install jenkins seperately using some key's and codes -- see official documents to install jenkins on ubuntu.
+
+---
+- hosts: all
+  become: yes
+  user: root
+  gather_facts: false
+  vars:
+      jenkins_port=8090
+  tasks:
+    - name: Will update the server (Ubuntu I have taken)
+      shell: apt update -y
+
+    - name: Adding the repository key to system     
+      apt_key: 
+         url: wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key |sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
+         state: present
+
+    - name: Adding the repository to system     
+      apt_repository: 
+         url: sudo sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+         state: present
+      notify: Update the package
+
+    - name: Installing java and jenkins.
+      apt: 
+         name: 
+           - openjdk-11-jdk
+           - jenkins
+         state: present
+
+    - name: Changing the port of jenkins.  
+      linweinfile:
+         path: /etc/default/jenkins
+         regexp: '^HTTP_PORT='        
+         line: HTTP_PORT="{{ jenkins_port }}"
+
+    - name: Checking that jenkins is up and running or not.
+      service:
+         name: jenkins
+         state: restarted       
+
+    - name: Sleep for 30 sec and then start with play.
+      wait_for: 
+          timeout: 30
+
+    - name: As we start jenkins through web it will ask for password.
+      shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: result
+
+    - name: To print the password.
+      debug:
+        var: result.stdout        
+
+    - handlers:
+        name: Update the package
+        shell: apt update -y  
