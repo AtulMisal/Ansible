@@ -1,0 +1,18 @@
+Vault is a place where we can store our personal data.
+In caseof this we have several files and in these files we are using some private data like access_key, passwords which we don't want to show user's without permission.
+For this in ansible we use ansible-valut
+
+1. To create a new vault file
+    ansible-valut create file_1.yml    -- It will ask password give and remember that.
+    
+2. To see/edit this file
+     ansible-valut edit file_1.yml      -- Now provide the password it will open
+     
+3. To change the password
+      ansible-valut rekey file_1.yml     -- Give old and new password
+      
+4. To create a vault file from existing file
+       ansible-valut encrypt file_2.yml    -- file_2 must be there in this directory
+       
+5. To remove vault from any file 
+        ansible-valut decrypt file_2.yml
