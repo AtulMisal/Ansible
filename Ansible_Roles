@@ -2,5 +2,30 @@
 # To avoid this we will create some roles and by using these roles will create playbook.
 
 To create role we will use ansible-galaxy which is nothing but a galaxy website where users can share roles and to a command-line tool for installing, creating, and managing roles.
-
-2. ansible-galaxy
+1. We will create ansible role 
+     ansible-galaxy init role_1
+2. Now one directory will be created to check this use tree command
+3. The role will consists of some files.
+     - default
+     - files    → This directory will conssts of the files which are copied/moved to server
+     - handlers → Will consists of all tasks 
+     - meta     → Data of data     
+     - tasks    → Will consists of all tasks 
+     - templets → These are simple commands for this will use jinja language.     ----(https://youtu.be/6cjbnuKjqPM) See this
+     - tests →
+     - vars → Will consists of all variables
+     
+  Now write all your tasks,variables and handlers other things in proper files.
+  To include this role in playbook use 
+     vi playbook.yml
+     
+     ---
+     - hosts: web        -- Your host name 
+       become: yes
+       user:             -- If user created give here
+       connection: ssh
+       gather_facts: false
+       tasks:
+          include: 
+             - role_1
+             - role_2
