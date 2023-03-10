@@ -1,0 +1,6 @@
+# In playbook we have created differnt play,tasks,handlers,variables and because of this the playbook becomes lenghty.
+# To avoid this we will create some roles and by using these roles will create playbook.
+
+To create role we will use ansible-galaxy which is nothing but a galaxy website where users can share roles and to a command-line tool for installing, creating, and managing roles.
+
+2. ansible-galaxy
